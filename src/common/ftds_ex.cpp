@@ -139,7 +139,7 @@ bool FtdsEx::BindColumn(int column, int varLen, int *varAddr)
 		return false;
 	}
 }
-bool FtdsEx::MoveNextRow()
+int FtdsEx::MoveNextRow()
 {
 	try
 	{
@@ -148,12 +148,12 @@ bool FtdsEx::MoveNextRow()
 	catch (TdsException& e)
 	{
 		ERR_LOG("MoveNextRow error!!!, %s", e.what());
-		return false;
+		return -1;
 	}
 	catch (...)
 	{
 		ERR_LOG("MoveNextRow error!!!");
-		return false;
+		return -1;
 	}
 }
 int  FtdsEx::CountRow()
@@ -269,11 +269,12 @@ bool FtdsEx::ExecSQL(const char *sql, Json::Value& json_ret)
 
 	if (!ExecSQL(sql))
 		return false;
-	int erc, rowCode;
+	int erc=0;
+    int rowCode = 0;
 	int recordSet = 0;
 	bool ret_flag = true;
 	while ( (ret_flag) && (( erc = GetResult() ) != 0) ) {
-		if ( 1 != erc) {
+		if ( -1 == erc) {
 			ret_flag = false;
 			break;
 		}
@@ -318,7 +319,6 @@ bool FtdsEx::ExecSQL(const char *sql, Json::Value& json_ret)
 				break;
 			}
 
-			// erc = dbbind(m_dbprocess, c, NTBSTRINGBIND, pcol->size+1, (BYTE*)pcol->buffer);
 			bool bbind = BindColumn(c, pcol->size+1,pcol->buffer);
 			if (!bbind) {
 				ERR_LOG("call dbbind() failed");
@@ -335,10 +335,10 @@ bool FtdsEx::ExecSQL(const char *sql, Json::Value& json_ret)
 		}
 		else {
 			while (( rowCode = MoveNextRow() ) != 0) {
-				if ( 1 != rowCode) {
-					ret_flag = false;
-					break;
-				}
+                if ( -1 == rowCode) {
+                    ret_flag = false;
+                    break;
+                }
 				Json::Value json_item;
 				for (pcol = columns; pcol - columns < ncols; pcol++) {
 					char *buffer = pcol->buffer;

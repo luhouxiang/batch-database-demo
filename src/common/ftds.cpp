@@ -77,7 +77,7 @@ bool FTDS::ExecSQL(const char *strSQL){
 	{
 		CloseDB();
 		throw TdsException(TdsException::TDS_EXCEPT_DBEXEC_ERR, 
-            "execDML(): error handle => FAIL");
+            "execDML(): error dbdead => FAIL");
 	}
 
 	if (dbcmd(m_dbprocess, strSQL) != SUCCEED) {
@@ -143,12 +143,12 @@ bool FTDS::BindColumn(int column, int varLen, int *varAddr)
     }
 }
 
-bool FTDS::MoveNextRow(){
+int FTDS::MoveNextRow(){
 	int row_code = dbnextrow(m_dbprocess);
 	if (row_code == NO_MORE_ROWS) {
-		return false;
+		return 0;
 	}else if (row_code == REG_ROW) {
-		return true;
+		return 1;
 	}else if (row_code == BUF_FULL) {
         CloseDB();
         throw TdsException(TdsException::TDS_EXCEPT_BUFFULL_ERR, 

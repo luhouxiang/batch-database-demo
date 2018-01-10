@@ -29,7 +29,7 @@ private:
 	int  GetResult();
 	bool BindColumn(int column, int varLen, char *varAddr);
 	bool BindColumn(int column, int varLen, int *varAddr);
-	bool MoveNextRow();
+	int  MoveNextRow();
 	int  CountRow();
 	bool IsCount();
 	bool Cancel();

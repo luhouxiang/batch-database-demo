@@ -16,10 +16,10 @@ class FTDS
 		const char *DBName,	uint32_t login_timeout, uint32_t rw_timeout);
     void CloseDB();
     bool ExecSQL(const char *strSQL);
-    int  GetResult();
+    int  GetResult();// 返回1表示有结果，返回0表示无结果，返回－1表示出错
     bool BindColumn(int column, int varLen, char *varAddr);
     bool BindColumn(int column, int varLen, int *varAddr);
-    bool MoveNextRow();
+    int  MoveNextRow();// 返回1表示有结果，返回0表示无结果，返回-1表示出错
     int  CountRow();
     bool IsCount();
 	bool Cancel();
