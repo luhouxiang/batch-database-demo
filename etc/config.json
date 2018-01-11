@@ -1,0 +1,12 @@
+{
+    "log_path":"../log/batch-database-demo.log",
+    "log_level": "debug",
+	"mssql": {"mssql_host":"192.168.5.216:1433",
+              "mssql_user":"sa",
+              "mssql_password":"1qaz@WSX",
+              "mssql_dbname":"BATCH_DATABASE_DEMO",
+              "mssql_poolsize":"1",
+              "mssql_login_timeout":"2",
+              "mssql_readwrite_timeout":"2"
+             }
+}

@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+src/*.ncb
+src/*.sln
+src/*.suo
+src/*.vcproj*
