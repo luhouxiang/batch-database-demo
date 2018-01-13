@@ -17,7 +17,7 @@
 
 #include "string_utility.h"
 
-double StringUtility::to_double(const std::string& arg) 
+double StringUtility::to_double(const string& arg) 
 {
     double d = 0.0;
     try
@@ -30,7 +30,7 @@ double StringUtility::to_double(const std::string& arg)
     }
     return d;
 }
-std::string StringUtility::to_string(int arg, int dec/*=1*/)
+string StringUtility::to_string(int arg, int dec/*=1*/)
 {
     char buf[30] = { 0 };
     try
@@ -43,12 +43,12 @@ std::string StringUtility::to_string(int arg, int dec/*=1*/)
     return buf;
 }
 
-std::string StringUtility::to_string(float arg, int dec/*=2*/)
+string StringUtility::to_string(float arg, int dec/*=2*/)
 {
     return to_string((double)arg, dec);
 }
 
-std::string StringUtility::to_string(double arg, int dec/*=2*/)
+string StringUtility::to_string(double arg, int dec/*=2*/)
 {
     char decbuf[5] = { 0 };   
     char buf[30] = { 0 };
@@ -63,31 +63,48 @@ std::string StringUtility::to_string(double arg, int dec/*=2*/)
     return buf;
 }
 
-std::string& StringUtility::Ltrim(std::string& str) { // NOLINT
-    std::string::iterator it = find_if(str.begin(), str.end(), std::not1(std::ptr_fun(::isspace)));
+string& StringUtility::Ltrim(string& str) { // NOLINT
+    string::iterator it = find_if(str.begin(), str.end(), std::not1(std::ptr_fun(::isspace)));
     str.erase(str.begin(), it);
     return str;
 }
 
-std::string& StringUtility::Rtrim(std::string& str) { // NOLINT
-    std::string::reverse_iterator it = find_if(str.rbegin(),
+string& StringUtility::Rtrim(std::string& str) { // NOLINT
+    string::reverse_iterator it = find_if(str.rbegin(),
         str.rend(), std::not1(std::ptr_fun(::isspace)));
 
     str.erase(it.base(), str.end());
     return str;
 }
 
-std::string& StringUtility::Trim(std::string& str) { // NOLINT
+string& StringUtility::Trim(string& str) { // NOLINT
     return Rtrim(Ltrim(str));
 }
 
-void StringUtility::Trim(std::vector<std::string>* str_list) {
+void StringUtility::Trim(vector<string>* str_list) {
     if (NULL == str_list) {
         return;
     }
 
-    std::vector<std::string>::iterator it;
+    vector<string>::iterator it;
     for (it = str_list->begin(); it != str_list->end(); ++it) {
         *it = Trim(*it);
     }
+}
+
+string StringUtility::replace_all(const string& src, const string& old_str, 
+                                  const string& new_str)
+{
+    string name = src;
+    string::size_type startpos = 0;
+    while (startpos != string::npos)
+    {
+        startpos = name.find(old_str, startpos);
+        if (startpos != string::npos) 
+        {
+            name.replace(startpos, old_str.size(), new_str);
+            startpos += new_str.size();
+        }
+    }
+    return name;
 }
