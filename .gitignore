@@ -35,3 +35,4 @@ src/*.ncb
 src/*.sln
 src/*.suo
 src/*.vcproj*
+src/version.h

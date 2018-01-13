@@ -15,25 +15,29 @@
 #ifndef _COMMON_STRING_UTILITY_H_
 #define _COMMON_STRING_UTILITY_H_
 
-#include <string>
-#include <vector>
-#include <json/json.h>
-
+# include <string>
+# include <vector>
+# include <json/json.h>
+# include <iostream>
+using std::string;
+using std::vector;
 class StringUtility {
 public:
-    static void Split(const std::string& str,
-        const std::string& delim,
-        std::vector<std::string>& result);
+    static void Split(const string& str,
+        const string& delim,
+        vector<string>& result);
 
-    static std::string& Ltrim(std::string& str);
-    static std::string& Rtrim(std::string& str);
-    static std::string& Trim(std::string& str);
-    static void Trim(std::vector<std::string>* str_list);
+    static string& Ltrim(string& str);
+    static string& Rtrim(string& str);
+    static string& Trim(string& str);
+    static void Trim(vector<string>* str_list);
 
-    static std::string to_string(int arg, int dec=1);
-    static std::string to_string(float arg, int dec=2);
-    static std::string to_string(double arg, int dec=2);
-    static double to_double(const std::string& arg);
+    static string to_string(int arg, int dec=1);
+    static string to_string(float arg, int dec=2);
+    static string to_string(double arg, int dec=2);
+    static double to_double(const string& arg);
+    static string replace_all(const string& name, const string& old_str, 
+        const string& new_str);
 };
 
 

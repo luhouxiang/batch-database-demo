@@ -20,12 +20,12 @@ class test_string_util : public ::testing::Test
 {
     virtual void SetUp()
     {
-        cout << "SetUp" <<endl ;
+        //cout << "SetUp" <<endl ;
     }
 
     virtual void TearDown()
     {
-        cout << "TearDown" << endl;
+        //cout << "TearDown" << endl;
     }
 
 };
@@ -40,4 +40,17 @@ TEST_F(test_string_util, to_string)
     EXPECT_EQ("-3.12", StringUtility::to_string(-3.12));
 
     EXPECT_EQ("0", StringUtility::to_string(0));
+}
+
+TEST_F(test_string_util, replace_all)
+{
+   EXPECT_EQ("3#1#2", StringUtility::replace_all("3.1.2", ".", "#"));
+   EXPECT_EQ("3..1....2", StringUtility::replace_all("3.1..2", ".", ".."));
+   EXPECT_EQ("3''1''''2", StringUtility::replace_all("3'1''2", "'", "''"));
+   EXPECT_EQ("312", StringUtility::replace_all("3'1''2", "'", ""));
+}
+
+TEST_F(test_string_util, replace_all2)
+{
+    EXPECT_EQ("3a1aa2", StringUtility::replace_all("3'1''2", "'", "a"));
 }

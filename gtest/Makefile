@@ -15,7 +15,7 @@ KDS_PROGRAM_NAME_CN=测试批量处理数据库Demo
 
 # TODO: 这里加入所有默认需要编译的目标
 LINK_TARGETS=batch-database-demo.a
-TEST_TARGETS=test
+TEST_TARGETS=start
 default: version.h $(LINK_TARGETS) $(TEST_TARGETS)
 
 # 全局的编译和链接选项都放在这儿
